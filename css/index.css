@@ -8,6 +8,10 @@
 body {
     font-family: "Roboto", sans-serif;
 }
+:root {
+    --header-height: 130px;
+    --white: white;
+}
 /*commom*/
 .container {
   width: 90%;
@@ -24,7 +28,25 @@ a {
 li {
     list-style-type: none;
 }
+main {
+    margin-top: var(--header-height);
+}
+
+button {
+    border: none;
+}
+
 /*header*/
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+section {
+    display: block;
+}
+
 .header-content {
    display: flex;
    justify-content: space-between;
@@ -77,5 +99,65 @@ li {
     width: 32px;
     height: 32px;
     border-radius: 50%;
+}
 
+.header-menu nav li:nth-child(2) a   {
+  color: #22C55E
+}
+
+/*slider*/
+.slider-content {
+    display: flex;
+    flex-direction: column;
+    height: 406px;
+    border: 2px solid red;
+    border: 0;
+}
+.slider-content-desc {
+  flex: 1;
+  background: linear-gradient(to right, #22C55E, #15803D); /* green-500 → green-700 */
+  border: 0;
+  border-top-left-radius: 15px;
+  border-top-right-radius:15px;
+  text-align:center;
+  padding: 10px 0px;
+  color: white;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.6;
+}
+
+.slider-content-desc button {
+    margin: 10px 0px;
+}
+.slider-content-desc h3 {
+    font-size: 20px;
+}
+.slider-content-desc button {
+    background: var(--white);
+    padding: 10px;
+    border-radius: 3em;
+    transition: background .5s;
+}
+.slider-content-desc button:hover {
+    cursor:pointer;
+    background: #eee;
+}
+.slider-content-img {
+    flex: 3;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius:10px;
+}
+/*medium. screen */
+@media  screen and (min-width: 728px){
+
+    .header-menu nav li > a span{
+        display: inline;
+        margin-left: 6px;
+    }
+    .header-logo h1 {
+        display: block;
+    }
 }
