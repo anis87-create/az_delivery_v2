@@ -31,10 +31,16 @@ body {
   width: 90%;
   margin: auto;
 }
-.py-12{
-    padding: 12px 0px;
+.ms-y{
+    margin: 2rem 0px;
+}
+.md-y {
+    margin: 3rem 0px;
 }
 
+.mlg-y{
+    margin: 4rem 0px;
+}
 a {
     text-decoration: none;
 }
@@ -49,7 +55,9 @@ main {
 button {
     border: none;
 }
-
+.spacer {
+  height: 60px;
+}
 /*header*/
 header {
     position: fixed;
@@ -88,8 +96,7 @@ section {
     display: none;
 }
 
-.header-menu {
-}
+
 
 .header-menu nav {
     display:flex;
@@ -123,12 +130,12 @@ section {
 
 /*slider*/
 .slider {
-    margin: 20px 0px 70px 0px;
+    margin: 20px 0px 60px 0px;
 }
 .slider-content {
     display: flex;
     flex-direction: column;
-    height: 406px;
+    height: auto;
     border: 2px solid red;
     border: 0;
 }
@@ -208,13 +215,13 @@ section {
 /*categories*/
 .categories-content {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-tempalte-rows: auto auto;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto auto;
     grid-gap: 10px;
     margin: 10px 0px;
 }
 .category {
-    with: 80px;
+    witdh: 80px;
     height: 80px;
     display: flex;
     justify-content: center;
@@ -274,7 +281,18 @@ section {
 .categories-content > .category:nth-child(8){
     background-image: url('../images/chinese_category .avif');
 }
-
+.categories-content > .category:nth-child(9){
+    background-image: url('../images/italian.avif');
+}
+.categories-content > .category:nth-child(10){
+    background-image: url('../images/breakfast.avif');
+}
+.categories-content > .category:nth-child(11){
+    background-image: url('../images/healthy.avif');
+}
+.searchbar_mobile{
+    margin-bottom: 30px;
+}
 /*medium. screen */
 @media  screen and (min-width: 728px){
 
@@ -291,9 +309,17 @@ section {
    .slider-content-desc button:hover {
         cursor: pointer;
     }
-     .categories {
-       margin: 250px 0px;
+     
+    .categories-content {
+        display: grid;
+       grid-template-columns: repeat(4, 1fr);
+         
     }
+    .category {
+        width: 130px;
+        height: 90px;
+    }
+
 
 }
 
@@ -355,7 +381,11 @@ section {
         padding-left: 30px;
     }
     .categories {
-       margin: 80px 0px;
+    margin: 50px 0px;
+    }
+    .categories-content {
+
+       display: flex;
     }
 
    
