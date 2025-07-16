@@ -1,0 +1,57 @@
+/*restaurant_info*/
+.restaurant-banner {
+   height: 300px;
+}
+.restaurant-banner >img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+
+}
+main {
+    margin: 0px;
+}
+.restaurant-info-content h1 {
+    margin: 1rem 0;
+    font-size: 1.5rem;
+}
+
+.restaurant-info-content> ul li {
+    display: inline-block;
+    width: 100px;
+}
+
+.restaurant-info-content> ul li i {
+    margin-right: 5px;
+}
+
+.restaurant-info-content> ul li:first-child i{
+    color: #ffd700;
+}
+.restaurant-info-menu {
+    margin: 1rem 0;
+}
+
+.price-time {
+    display: flex;
+    margin: 1rem 0;
+}
+
+.price-time > span {
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 13px;
+    font-size: 0.8rem;
+    padding: 4px 8px;
+}
+
+.price-time > span:last-child{
+    margin-left: 5px;
+}
+
+
+/*items*/
+
+.items-content h2 {
+    margin: 1rem 0;
+}

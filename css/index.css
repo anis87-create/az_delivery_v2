@@ -4,9 +4,13 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+html, body {
+    height: 100%;
+}
 body {
     font-family: "Roboto", sans-serif;
+    display:flex;
+    flex-direction: column;
 }
 :root {
     --header-height: 130px;
@@ -51,6 +55,7 @@ li {
 }
 main {
     margin-top: var(--header-height);
+    flex: 1;
 }
 
 button {
@@ -230,6 +235,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 
     color: white;
     transition: background-color .5s;
@@ -308,6 +314,13 @@ section {
    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
    border-radius: 1rem;
    margin: 1rem 0px;
+   cursor:pointer;
+  transition: box-shadow 0.3s ease;
+ }
+
+ .restaurant:hover {
+     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+              0 4px 6px -4px rgba(0, 0, 0, 0.1);
 
  }
  
@@ -366,6 +379,15 @@ section {
    left: 0px;
    background: rgba(0, 0, 0, 0.2);
 }
+footer {
+    text-align: center;           /* centre le texte horizontalement */
+  padding: 20px 0;              /* espace vertical autour du texte */
+  background-color: #f9fafb;    /* couleur douce (tu peux la changer) */
+  color: #333;                  /* texte foncé mais lisible */
+  font-size: 0.9rem;            /* taille un peu réduite */
+  margin-top: 40px;             /* espace avec ce qui précède */
+  border-top: 1px solid #e5e7eb;/* ligne discrète de séparation */
+}
 /*medium. screen */
 @media  screen and (min-width: 728px){
 
@@ -391,6 +413,12 @@ section {
     .category {
         width: 130px;
         height: 90px;
+    }
+
+    .restaurants-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 1rem;
     }
 
 
@@ -459,6 +487,11 @@ section {
     .categories-content {
 
        display: flex;
+    }
+    .restaurants-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 1rem;
     }
 
    
