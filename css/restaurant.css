@@ -1,4 +1,4 @@
-/*restaurant_info*/
+/*restaurant_banner*/
 .restaurant-banner {
    height: 300px;
 }
@@ -11,10 +11,16 @@
 main {
     margin: 0px;
 }
+
+/*restaurant_info*/
+.restaurant-info {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 1rem 0;
+}
 .restaurant-info-content h1 {
-    margin: 1rem 0;
     font-size: 1.5rem;
 }
+
 
 .restaurant-info-content> ul li {
     display: inline-block;
@@ -54,4 +60,86 @@ main {
 
 .items-content h2 {
     margin: 1rem 0;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.313rem;
+    box-shadow: var(--box-shadow-card);
+}
+
+.item h3 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.item-desc {
+    padding: 1rem;
+}
+
+.item-desc > span {
+    background: var(--primary-color);
+    color: white;
+    font-size: 0.9rem;
+    display:block;
+    padding: 0.125rem 0.625rem;
+    border-radius: 12px;
+    width: 80px;
+    text-align: center;
+    margin: 0.5rem 0px;
+}
+.item-desc > span:hover {
+       background: var(--green-dark);
+       cursor:pointer;
+}
+.price {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0px;
+}
+
+.price button {
+    background: var(--primary-color);
+    color: white;
+    padding: 4px 0.625rem;
+    border-radius: 3px;
+    height: 2rem;
+    font-size: 0.875rem;
+}
+
+.price button:hover {
+    background: var(--green-dark);
+    cursor:pointer;
+}
+
+.price span {
+    font-weight: bold;
+}
+
+/*medium. screen */
+@media  screen and (min-width: 728px){
+    .item {
+        display: flex;
+        flex-direction: row;
+    }
+    .item img {
+        width: 25%;
+        height:100%;
+        align-self: flex-end;
+        order:2;
+    }
+    .item-desc {
+        flex: 3;
+    }
+}
+
+@media  screen and (min-width: 1024px){
+    .item {
+        height: 9.625rem;
+    }
+    .item img {
+        width:15%;
+    } 
 }

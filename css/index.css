@@ -16,6 +16,8 @@ body {
     --header-height: 130px;
     --white: white;
     --primary-color: #22C55E;
+    --green-dark:   #48bb78;
+    --box-shadow-card:  rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
 .searchbar{
@@ -48,6 +50,7 @@ body {
 }
 a {
     text-decoration: none;
+    color: inherit;
 }
 
 li {
@@ -311,7 +314,7 @@ section {
 
  .restaurant {
    overflow: hidden;
-   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+   box-shadow: var(--box-shadow-card);
    border-radius: 1rem;
    margin: 1rem 0px;
    cursor:pointer;
