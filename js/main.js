@@ -1,4 +1,4 @@
-import { setupAddButtons } from "./dom.js";
+import { mainCart } from "./cart.js";
 document.addEventListener('DOMContentLoaded',() => {
-    setupAddButtons();
+    mainCart();
 });
