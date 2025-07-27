@@ -4,14 +4,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-html, body {
-    height: 100%;
-}
-body {
-    font-family: "Roboto", sans-serif;
-    display:flex;
-    flex-direction: column;
-}
 :root {
     --header-height: 130px;
     --white: white;
@@ -19,6 +11,17 @@ body {
     --green-dark:   #48bb78;
     --box-shadow-card:  rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
+html, body {
+    height: 100%;
+}
+body {
+    font-family: "Roboto", sans-serif;
+    display:flex;
+    flex-direction: column;
+    background: #F9FAFB;
+
+}
+
 
 .searchbar{
     padding: 10px;
