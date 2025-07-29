@@ -64,12 +64,14 @@
                     <div class="cart-items">
                         <h2>Order Items</h2>
                         <div class="cart-item">
-                            <img src="images/placeholder.svg" alt=""/>
                             <div class="cart-item-desc">
-                                <h3>Classic Cheeseburger</h3>
-                                <span>Burger Palace</span>
-                                <span>$8.99</span>
-                            </div>
+                               <img src="images/placeholder.svg" alt=""/>
+                                <div class="cart-item-info">
+                                    <h3>Classic Cheeseburger</h3>
+                                    <span>Burger Palace</span>
+                                    <span>$8.99</span>
+                                </div>
+                            </div>                   
                             <div class="cart-item-btn">
                                     <button id="cart-item-btn-minus">-</button> 
                                     <span>1</span> 
@@ -77,11 +79,31 @@
                                     <i class="fa fa-trash-o"></i>
                             </div>
                         </div>
+                        
+        
                     </div>
-                    <div class="car-order">
+                    <div class="cart-order">
+                        <h2>Order Summary</h2>
+                        <div class="cart-order-row">
+                              <span>Subtotal</span>
+                              <span>$8.99</span>
+                        </div>
+                        <div class="cart-order-row">
+                              <span>Delivery Free</span>
+                              <span>$1.99</span>
+                        </div>
+                        <div class="cart-order-row">
+                              <span>Tax</span>
+                              <span>$0.76</span>
+                        </div>
+                        <hr>
+                        <div class="cart-order-row">
+                              <span id="total_label">Total</span>
+                              <span id="total_value">$12.73</span>
+                        </div>
+                        <button>Proceed to Checkout</button>
 
                     </div>
-                
                 </div>
             </div>
          </div>

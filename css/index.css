@@ -9,6 +9,7 @@
     --white: white;
     --primary-color: #22C55E;
     --green-dark:   #48bb78;
+    --secondary-color:  rgb(249 115 22 / 0.9);
     --box-shadow-card:  rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 html, body {
