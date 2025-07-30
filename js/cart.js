@@ -3,6 +3,7 @@ import { saveCartItems, getCartItems } from "./utils.js";
 export const mainCart  = () => {
     setupAddButtons();
     displayCartCount();
+    loadCartItems();
 }
 
 
@@ -220,5 +221,59 @@ const displayCartCount = () => {
 }
   
 
+const loadCartItems = () => {
+   let items =  getCartItems();
 
+   const cartContainer = document.getElementById('cart-items-content');
+
+   items.forEach(item => {
+         const cartItem = document.createElement('div');
+      cartItem.classList.add('cart-item');
+      const cartItemDesc = document.createElement('div');
+      cartItemDesc.classList.add('cart-item-desc');
+      const cartItemImg = document.createElement('img');
+      cartItemImg.src="images/placeholder.svg";
+      cartItemImg.alt="";
+      const cartItemInfo = document.createElement('div');
+      cartItemInfo.classList.add("cart-item-info");
+      const itemName = document.createElement('h3');
+      const itemNameValue = document.createTextNode(item.name);
+      itemName.appendChild(itemNameValue);
+      const restaurantName = document.createElement('span');
+      const restaurantNameValue = document.createTextNode('BurgerPalace');
+      restaurantName.appendChild(restaurantNameValue);
+      const itemPrice = document.createElement('span');
+      const itemPriceValue = document.createTextNode(`$${item.price}`);
+      itemPrice.appendChild(itemPriceValue);
+      cartItemDesc.appendChild(cartItemImg);
+      cartItemInfo.appendChild(itemName);
+      cartItemInfo.appendChild(restaurantName);
+      cartItemInfo.append(itemPrice);
+      cartItemDesc.appendChild(cartItemInfo);
+      const cartItemButtons = document.createElement('div');
+      const buttonMinus = document.createElement('button');
+      const buttonMinusValue = document.createTextNode('+');
+      buttonMinus.appendChild(buttonMinusValue);
+      buttonMinus.id = 'cart-item-btn-minus';
+      const itemCount = document.createElement('span');
+      const itemCountValue = document.createTextNode(item.quantity);
+      itemCount.appendChild(itemCountValue);
+      const buttonPlus = document.createElement('button');
+      buttonPlus.id = 'cart-item-btn-plus';
+      const buttonPlusValue = document.createTextNode('-');
+      buttonPlus.appendChild(buttonPlusValue);
+      const icon = document.createElement('i');
+      icon.classList.add('fa');
+      icon.classList.add('fa-trash-o');
+      cartItemButtons.classList.add('cart-item-btn');
+      cartItemButtons.appendChild(buttonMinus);
+      cartItemButtons.appendChild(itemCount);
+      cartItemButtons.appendChild(buttonPlus);
+      cartItemButtons.appendChild(icon);
+      cartItem.appendChild(cartItemDesc);
+      cartItem.appendChild(cartItemButtons);
+         cartContainer.appendChild(cartItem);
+   });
+
+}
 

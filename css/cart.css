@@ -133,6 +133,22 @@
 .cart-item-btn i {
     color: red;
 }
+.cart-item-info > span{
+    display: block;
+    font-size: 0.875rem; /* Equivalent to 14px */
+line-height: 1.25rem; /* Equivalent to 20px */
+
+
+}
+.cart-item-info span:last-child {
+    color: var(--secondary-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+#cart-items-content {
+
+}
 
 @media  screen and (min-width: 728px){
     .cart-item{
