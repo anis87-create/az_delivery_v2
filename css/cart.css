@@ -120,13 +120,15 @@
     border-radius: 0.25rem;
 }
 
-#cart-item-btn-minus {
+.cart-item-btn-minus {
     margin-right: 1rem;
+    cursor:pointer;
 }
 
-#cart-item-btn-plus {
+.cart-item-btn-plus {
     margin-left: 1rem;
     margin-right: 1rem;
+    cursor:pointer;
 }
 
 
