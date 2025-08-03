@@ -129,6 +129,7 @@ const setupAddButtons = () => {
          
       
          e.target.parentElement.appendChild(div);
+                         
          buttonMinus.addEventListener('click', (e) => {       
             e.preventDefault();
             let numberOfItems = Number(e.target.nextElementSibling.textContent);
@@ -139,21 +140,24 @@ const setupAddButtons = () => {
             if (index !== -1) {
                items[index].quantity = numberOfItems;
             }
-            saveCartItems(items);
+            saveCartItems(items);               
             if(items[index].quantity === 0){
+   
                div.style.display='none';
                itemButton.style.display = 'block';
                const itemName = e.target.parentElement.parentElement.parentElement.children[0].textContent;
-               removeFromCart(getCartItems(), itemName);   
+               removeFromCart(items, itemName);   
                displayCartCount();
-         }    
+         }     
+
          
          displayCartCount();
          });
       });
+      
 
    }
-);
+  );
  
 }
 
@@ -169,8 +173,7 @@ const removeFromCart = (arr, itemName) => {
   const itemsParsed = arr;
   const foundedItemById = itemsParsed.find(item  => item.name === itemName)?.id;
   const updatedItems = itemsParsed.filter(item => item?.id !== foundedItemById);
-  saveCartItems(updatedItems); 
-  displayCartCount();
+  saveCartItems(updatedItems);   
 }
 const UIButton = (button) => {
    button.style.background= '#f9fafb';
@@ -224,8 +227,6 @@ const displayCartCount = () => {
 
 const loadCartItems = () => {
    let items =  getCartItems();
-
-
    const cartContainer = document.getElementById('cart-items-content');
    items.forEach(item => {
       const cartItem = document.createElement('div');
@@ -273,9 +274,25 @@ const loadCartItems = () => {
       cartItemButtons.appendChild(icon);
       cartItem.appendChild(cartItemDesc);
       cartItem.appendChild(cartItemButtons);
-      if(cartContainer){
+    
+      if(cartContainer && item.quantity!=0){         
          cartContainer.appendChild(cartItem);
-   }
+     }
+
+   
+     const btnDelete = cartItem.children[1].children[3];
+     btnDelete.addEventListener('click', (e) => {
+       e.preventDefault();
+       removeFromCart(items, item.name);
+       displayCartCount();
+       cartItem.remove();
+       
+       
+       if(items.length === 0){
+         EmptyCartUI();
+       }
+       
+     })
    
    });
    const btnPluselements = document.getElementsByClassName('cart-item-btn-plus');
@@ -327,10 +344,44 @@ const loadCartItems = () => {
             removeFromCart(getCartItems(), itemName);   
             displayCartCount();
           }  
+
+         if(getCartItems().length === 0){
+            EmptyCartUI();
+          }
          displayCartCount();
          
       }); 
-   });
+   });  
 
+}
+
+const EmptyCartUI = () => {
+   const cartItemsContainer = document.querySelector('.cart-items');
+   if(cartItemsContainer){
+      cartItemsContainer.children[0].style.display = 'none';
+      const title = document.createElement('h1');
+      const emptyText = document.createTextNode('Your cart is empty');
+      title.appendChild(emptyText);
+      title.style.marginBottom = '1rem';
+      document.querySelector('.cart-items').appendChild(title);
+      const emptyCartParagraph = document.createElement('p');
+      const emptyCartParagraphText =  document.createTextNode("Looks like you haven't added any items to your cart yet.");
+      emptyCartParagraph.appendChild(emptyCartParagraphText);
+      emptyCartParagraph.style.marginBottom ='2rem';
+      cartItemsContainer.appendChild(emptyCartParagraph);
+      const emptyCartBtn = document.createElement('button');
+      emptyCartBtn.textContent = 'Start Shopping';
+      emptyCartBtn.style.background = 'rgb(249 115 22 / 0.9)';
+      emptyCartBtn.style.color='#fff';
+      emptyCartBtn.style.padding='0.625rem';
+      emptyCartBtn.style.borderRadius = '0.313rem';
+      emptyCartBtn.style.cursor = 'pointer';
+      cartItemsContainer.appendChild(emptyCartBtn);
+      cartItemsContainer.style.display='flex';
+      cartItemsContainer.style.flexDirection='column';
+      cartItemsContainer.style.justifyContent='center';
+      cartItemsContainer.style.alignItems='center';
+
+   }   
 
 }
