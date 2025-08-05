@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/checkout.css">
+    <link rel="stylesheet" href="css/index.css">
+    <title>AZ Food Delivery App</title>
+</head>
+<body>
+   <!--header-->
+   <header>
+       <div class="container">
+          <div class="header-content">
+              <div class="header-logo">
+                   <img src="images/logo.png" alt=""/>
+                   <h1>AzFoodDilevery</h1>
+              </div>
+               <input type="text" placeholder="Restaurants, commerce, plats" class="searchbar searchbar_desktop" />
+              <div class="header-menu">
+                <nav>
+                    <li>
+                        <a href="index.html">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home w-5 h-5 sm:mr-1.5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                       <a href="cart.html" id="cart">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart w-5 h-5 sm:mr-1.5"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
+                            <span >Cart</span>
+                       </a> 
+                    </li>
+                    <li>
+                        <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text w-5 h-5 sm:mr-1.5"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
+                            <span>Orders</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="images/avatar.png" alt="avatar">
+                        </a>
+                    </li>
+                   </nav>
+              </div>
+          </div>
+       </div>
+   </header>
+   <!--main-->
+   <main>
+       <div class="checkout-container">
+          <div class="container">
+               <div class="checkout-content">
+                   <form>
+                    <div class="checkout-group">
+                      <h2>Delivery Information</h2>
+                        <div class="form-group">
+                          <label>Full Name *</label> <br>
+                          <input type="text" name="fullName" value="" placeholder="John Doe" />
+                        </div>
+                        <div class="form-group">
+                          <label>Phone Number *</label> <br>
+                          <input type="text" name="phoneNumber" value="" placeholder="+(155) 123 4567" />
+                        </div>
+                        <div class="form-group">
+                            <label>Email *</label> <br>
+                            <input type="email" name="phoneNumber" value=""  placeholder="john.doe@example.com"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="radio"  name="location" checked> <label>Home</label>
+                            <input type="radio"  name="location"/> <label>Work</label>
+                            <input type="radio"  name="location"/> <label>Other</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Street Address *</label> <br>
+                            <input type="text" placeholder="123 Main St">
+                        </div>
+                        <div class="form-group">
+                            <label>City *</label> <br>
+                            <input type="text" placeholder="Anytown">
+                        </div>
+                        <div class="form-group">
+                            <label>ZipCode *</label> <br>
+                            <input type="text" placeholder="12345">
+                        </div>
+                    </div>
+                    <div class="checkout-group">
+                        <h2>Payment method</h2>
+                        <div class="form-group form-group-payment">
+                            <input type="radio" checked name="payment">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-credit-card w-5 h-5 mr-2 text-gray-500"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
+                            <label>Credit/Debit Card</label>
+                        </div>
+                        <div class="form-group form-group-payment">
+                            <input type="radio" checked name="payment">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-gray-500"><rect width="20" height="12" x="2" y="6" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>
+                            <label>Cash on Deliery</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Card Number</label><br>
+                            <input type="text" placeholder="123 456 789 333" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label>Name on Card</label><br>
+                            <input type="text" placeholder="John Doe" disabled>
+                        </div>
+                    </div>
+                  
+                   </form>
+               </div>
+          </div>
+       </div>
+   </main>
+   <footer>
+       <p>&copy; 2025 AzFoodDelivery. Tous droits réservés.</p>
+   </footer>
+   <script src="js/main.js"  type="module"></script>
+</body>
+</html>

@@ -56,15 +56,15 @@
             <div class="cart-content"> 
                 <div class="cart-content-header">
                     <h1>Your Cart</h1>
-                    <button>
+                    <button id="btn-clear">
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
-                        Clear Cart</button>
+                        Clear Cart
+                    </button>
                 </div>
                 <div class="cart-content-main">
                     <div class="cart-items">
                         <h2>Order Items</h2>
                         <div id="cart-items-content">
-                 
                         </div>
                     
                         
@@ -72,8 +72,8 @@
                     <div class="cart-order">
                         <h2>Order Summary</h2>
                         <div class="cart-order-row">
-                              <span>Subtotal</span>
-                              <span>$8.99</span>
+                              <span >Subtotal</span>
+                              <span id="subtotal"></span>
                         </div>
                         <div class="cart-order-row">
                               <span>Delivery Free</span>
@@ -86,9 +86,9 @@
                         <hr>
                         <div class="cart-order-row">
                               <span id="total_label">Total</span>
-                              <span id="total_value">$12.73</span>
+                              <span id="total_value"></span>
                         </div>
-                        <button>Proceed to Checkout</button>
+                        <a href="/checkout.html" class="cart-order-btn">Proceed to Checkout</a>
 
                     </div>
                 </div>

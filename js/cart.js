@@ -4,6 +4,8 @@ export const mainCart  = () => {
     setupAddButtons();
     displayCartCount();
     loadCartItems();
+    clearItems();
+    updateOrder();
 }
 
 
@@ -15,7 +17,8 @@ const setupAddButtons = () => {
    buttons.forEach(button => {
       const itemElement = button.closest('.item-desc');
       const name = itemElement.querySelector('h3')?.textContent;
-      const cartItems = JSON.parse(localStorage.getItem('items')) || [];  
+
+      const cartItems =   getCartItems() || [];  
       const item = cartItems.find(item => item.name === name);
       if(!item || item.quantity === 0){
          button.style.display = 'block';
@@ -108,7 +111,6 @@ const setupAddButtons = () => {
             items[index].quantity = 1;
          }
 
-
          addToCart(items, {id: ++id,quantity: 1, name, ingredients, price});  
          buttonPlus.addEventListener('click', (e) => {
             e.preventDefault();
@@ -142,11 +144,11 @@ const setupAddButtons = () => {
             }
             saveCartItems(items);               
             if(items[index].quantity === 0){
-   
                div.style.display='none';
                itemButton.style.display = 'block';
                const itemName = e.target.parentElement.parentElement.parentElement.children[0].textContent;
-               removeFromCart(items, itemName);   
+               items = removeFromCart(items, itemName);   
+               saveCartItems(items);              
                displayCartCount();
          }     
 
@@ -154,8 +156,6 @@ const setupAddButtons = () => {
          displayCartCount();
          });
       });
-      
-
    }
   );
  
@@ -170,10 +170,9 @@ const addToCart = (arr, item) => {
   displayCartCount();  
 }
 const removeFromCart = (arr, itemName) => {
-  const itemsParsed = arr;
-  const foundedItemById = itemsParsed.find(item  => item.name === itemName)?.id;
-  const updatedItems = itemsParsed.filter(item => item?.id !== foundedItemById);
-  saveCartItems(updatedItems);   
+  const foundedItemById = arr.find(item  => item.name === itemName)?.id;
+  const updatedItems = arr.filter(item => item?.id !== foundedItemById);
+  return updatedItems; 
 }
 const UIButton = (button) => {
    button.style.background= '#f9fafb';
@@ -283,9 +282,11 @@ const loadCartItems = () => {
      const btnDelete = cartItem.children[1].children[3];
      btnDelete.addEventListener('click', (e) => {
        e.preventDefault();
-       removeFromCart(items, item.name);
+       items = removeFromCart(items, item.name);
+       saveCartItems(items);
        displayCartCount();
        cartItem.remove();
+       console.log(items);
        
        
        if(items.length === 0){
@@ -352,13 +353,14 @@ const loadCartItems = () => {
          
       }); 
    });  
-
 }
 
 const EmptyCartUI = () => {
+
    const cartItemsContainer = document.querySelector('.cart-items');
    if(cartItemsContainer){
       cartItemsContainer.children[0].style.display = 'none';
+      document.querySelector('.cart-items').innerHTML='';
       const title = document.createElement('h1');
       const emptyText = document.createTextNode('Your cart is empty');
       title.appendChild(emptyText);
@@ -381,7 +383,36 @@ const EmptyCartUI = () => {
       cartItemsContainer.style.flexDirection='column';
       cartItemsContainer.style.justifyContent='center';
       cartItemsContainer.style.alignItems='center';
-
    }   
 
 }
+
+const clearItems = () => {
+   const btnClear = document.getElementById('btn-clear');
+   if(btnClear){
+   btnClear.addEventListener('click', function(e){
+      e.preventDefault();
+      localStorage.setItem('items', []);    
+      EmptyCartUI();
+      displayCartCount();
+   })
+   }
+}
+
+
+const updateOrder = () => {
+   const arr = getCartItems();
+   const subTotal = arr.reduce((accumulator, currentValue) => accumulator + (currentValue.quantity*currentValue.price), 0);
+   const subTotalElt = document.getElementById('subtotal');
+   if(subTotalElt){
+   subTotalElt.innerText = `$${subTotal}`;
+   }
+   const totalValueElt = document.getElementById('total_value');
+   
+
+   const total =  subTotal + 1.99 + 0.76;
+   if(totalValueElt){
+   totalValueElt.innerText= `$${total}`
+   }
+} 
+
