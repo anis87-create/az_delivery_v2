@@ -57,35 +57,35 @@
                    <form>
                     <div class="checkout-group">
                       <h2>Delivery Information</h2>
-                        <div class="form-group">
+                      <div class="form-group">
                           <label>Full Name *</label> <br>
                           <input type="text" name="fullName" value="" placeholder="John Doe" />
-                        </div>
-                        <div class="form-group">
+                      </div>
+                      <div class="form-group">
                           <label>Phone Number *</label> <br>
                           <input type="text" name="phoneNumber" value="" placeholder="+(155) 123 4567" />
-                        </div>
-                        <div class="form-group">
+                      </div>
+                      <div class="form-group">
                             <label>Email *</label> <br>
                             <input type="email" name="phoneNumber" value=""  placeholder="john.doe@example.com"/>
-                        </div>
-                        <div class="form-group">
+                      </div>
+                      <div class="form-group">
                             <input type="radio"  name="location" checked> <label>Home</label>
                             <input type="radio"  name="location"/> <label>Work</label>
                             <input type="radio"  name="location"/> <label>Other</label>
-                        </div>
-                        <div class="form-group">
+                      </div>
+                      <div class="form-group">
                             <label>Street Address *</label> <br>
                             <input type="text" placeholder="123 Main St">
-                        </div>
-                        <div class="form-group">
+                      </div>
+                      <div class="form-group">
                             <label>City *</label> <br>
                             <input type="text" placeholder="Anytown">
-                        </div>
-                        <div class="form-group">
-                            <label>ZipCode *</label> <br>
-                            <input type="text" placeholder="12345">
-                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>ZipCode *</label> <br>
+                        <input type="text" placeholder="12345">
+                      </div>
                     </div>
                     <div class="checkout-group">
                         <h2>Payment method</h2>
@@ -107,8 +107,71 @@
                             <label>Name on Card</label><br>
                             <input type="text" placeholder="John Doe" disabled>
                         </div>
+                        <div class="expire_cvv">
+                            <div class="form-group">
+                                <label>Expire Date</label><br>
+                                <input type="text" placeholder="MM/YY" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>CVV</label><br>
+                                <input type="text" placeholder="123" disabled>
+                            </div>
+                        </div>
                     </div>
-                  
+                    <div class="checkout-group">
+                       <h2>Order Summary</h2>
+                       <div class="order-items">
+                           <div class="order-item">
+                               <div class="order-item-left">
+                                  <img src="images/placeholder.svg" alt="">
+                                  <div class="count">3</div>
+                                  <div class="order-item-left-desc">
+                                    <h3>Classic CheesBurger</h3>  
+                                    <span>Burger Palace</span>
+                                  </div>
+                               </div>
+                               <div class="order-item-right">
+                                  <span>$26.97</span>
+                               </div>
+                           </div>
+                           <div class="order-item">
+                               <div class="order-item-left">
+                                  <img src="images/placeholder.svg" alt="">
+                                  <div class="count">1</div>
+                                  <div class="order-item-left-desc">
+                                    <h3>Bacon Deluxe</h3>  
+                                    <span>Burger Palace</span>
+                                  </div>
+                               </div>
+                               <div class="order-item-right">
+                                  <span>$26.97</span>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="order_division"></div>
+                       <div class="total_container">
+                          <div class="total_row">
+                             <span>SubTotal</span>
+                             <span>$37.96</span>
+                          </div>
+                          <div class="total_row">
+                             <span>Delivery Free</span>
+                             <span>$1.99</span>
+                          </div>
+                          <div class="total_row">
+                             <span>Service Fee</span>
+                             <span>$0.99</span>
+                          </div>
+                       </div> 
+                       <div class="order_division"></div>
+                       <div class="total_price">
+                         <span>Total</span>
+                         <span>$44.17</span>
+                       </div>
+                    </div>
+                    <a class="checkout-btn" href="#">
+                        Place Order <span>-</span> $44.17
+                    </a>
                    </form>
                </div>
           </div>
