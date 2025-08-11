@@ -1,6 +1,10 @@
-import { saveCartItems, getCartItems } from "./utils.js";
+import { saveCartItems, getCartItems, getTotalPrice } from "./utils.js";
 
-export const mainCart  = () => {
+
+document.addEventListener('DOMContentLoaded', () => {
+   mainCart();
+});
+const mainCart  = () => {
     setupAddButtons();
     displayCartCount();
     loadCartItems();
@@ -226,7 +230,12 @@ const displayCartCount = () => {
 
 const loadCartItems = () => {
    let items =  getCartItems();
+   if (!items || items.length === 0) {
+       EmptyCartUI(); // Afficher l'état vide dès le début
+       return;
+   }
    const cartContainer = document.getElementById('cart-items-content');
+   if (!cartContainer) return;
    items.forEach(item => {
       const cartItem = document.createElement('div');
       cartItem.classList.add('cart-item');
@@ -286,9 +295,6 @@ const loadCartItems = () => {
        saveCartItems(items);
        displayCartCount();
        cartItem.remove();
-       console.log(items);
-       
-       
        if(items.length === 0){
          EmptyCartUI();
        }
@@ -402,7 +408,7 @@ const clearItems = () => {
 
 const updateOrder = () => {
    const arr = getCartItems();
-   const subTotal = arr.reduce((accumulator, currentValue) => accumulator + (currentValue.quantity*currentValue.price), 0);
+   const subTotal = getTotalPrice(arr);
    const subTotalElt = document.getElementById('subtotal');
    if(subTotalElt){
    subTotalElt.innerText = `$${subTotal}`;

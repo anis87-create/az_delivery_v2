@@ -34,7 +34,7 @@
                        </a> 
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="orders.html">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text w-5 h-5 sm:mr-1.5"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>
                             <span>Orders</span>
                         </a>
@@ -55,123 +55,106 @@
           <div class="container">
                <div class="checkout-content">
                    <form>
-                    <div class="checkout-group">
-                      <h2>Delivery Information</h2>
-                      <div class="form-group">
-                          <label>Full Name *</label> <br>
-                          <input type="text" name="fullName" value="" placeholder="John Doe" />
-                      </div>
-                      <div class="form-group">
-                          <label>Phone Number *</label> <br>
-                          <input type="text" name="phoneNumber" value="" placeholder="+(155) 123 4567" />
-                      </div>
-                      <div class="form-group">
-                            <label>Email *</label> <br>
-                            <input type="email" name="phoneNumber" value=""  placeholder="john.doe@example.com"/>
-                      </div>
-                      <div class="form-group">
-                            <input type="radio"  name="location" checked> <label>Home</label>
-                            <input type="radio"  name="location"/> <label>Work</label>
-                            <input type="radio"  name="location"/> <label>Other</label>
-                      </div>
-                      <div class="form-group">
-                            <label>Street Address *</label> <br>
-                            <input type="text" placeholder="123 Main St">
-                      </div>
-                      <div class="form-group">
-                            <label>City *</label> <br>
-                            <input type="text" placeholder="Anytown">
-                      </div>
-                      <div class="form-group">
-                        <label>ZipCode *</label> <br>
-                        <input type="text" placeholder="12345">
-                      </div>
-                    </div>
-                    <div class="checkout-group">
-                        <h2>Payment method</h2>
-                        <div class="form-group form-group-payment">
-                            <input type="radio" checked name="payment">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-credit-card w-5 h-5 mr-2 text-gray-500"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
-                            <label>Credit/Debit Card</label>
-                        </div>
-                        <div class="form-group form-group-payment">
-                            <input type="radio" checked name="payment">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-gray-500"><rect width="20" height="12" x="2" y="6" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>
-                            <label>Cash on Deliery</label>
+                    <div class="menu-container"> 
+                        <div class="checkout-group">
+                        <h2>Delivery Information</h2>
+                        <div class="form-group">
+                            <label>Full Name *</label> <br>
+                            <input type="text" name="fullName" value="" placeholder="John Doe" />
                         </div>
                         <div class="form-group">
-                            <label>Card Number</label><br>
-                            <input type="text" placeholder="123 456 789 333" disabled>
+                            <label>Phone Number *</label> <br>
+                            <input type="text" name="phoneNumber" value="" placeholder="+(155) 123 4567" />
                         </div>
                         <div class="form-group">
-                            <label>Name on Card</label><br>
-                            <input type="text" placeholder="John Doe" disabled>
+                                <label>Email *</label> <br>
+                                <input type="email" name="phoneNumber" value=""  placeholder="john.doe@example.com"/>
                         </div>
-                        <div class="expire_cvv">
+                        <div class="form-group">
+                                <input type="radio"  name="location" checked> <label>Home</label>
+                                <input type="radio"  name="location"/> <label>Work</label>
+                                <input type="radio"  name="location"/> <label>Other</label>
+                        </div>
+                        <div class="form-group">
+                                <label>Street Address *</label> <br>
+                                <input type="text" placeholder="123 Main St">
+                        </div>
+                        <div class="location">
                             <div class="form-group">
-                                <label>Expire Date</label><br>
-                                <input type="text" placeholder="MM/YY" disabled>
+                                <label>City *</label> <br>
+                                <input type="text" placeholder="Anytown">
                             </div>
                             <div class="form-group">
-                                <label>CVV</label><br>
-                                <input type="text" placeholder="123" disabled>
+                                <label>ZipCode *</label> <br>
+                                <input type="text" placeholder="12345">
+                             </div>
+                        </div>
+                        
+                        </div>
+                        <div class="checkout-group">
+                            <h2>Payment method</h2>
+                            <div class="form-group form-group-payment">
+                                <input type="radio" checked name="payment">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-credit-card w-5 h-5 mr-2 text-gray-500"><rect width="20" height="14" x="2" y="5" rx="2"></rect><line x1="2" x2="22" y1="10" y2="10"></line></svg>
+                                <label>Credit/Debit Card</label>
+                            </div>
+                            <div class="form-group form-group-payment">
+                                <input type="radio" checked name="payment">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-gray-500"><rect width="20" height="12" x="2" y="6" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>
+                                <label>Cash on Deliery</label>
+                            </div>
+                            <div class="form-group">
+                                <label>Card Number</label><br>
+                                <input type="text" placeholder="123 456 789 333" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>Name on Card</label><br>
+                                <input type="text" placeholder="John Doe" disabled>
+                            </div>
+                            <div class="expire_cvv">
+                                <div class="form-group">
+                                    <label>Expire Date</label><br>
+                                    <input type="text" placeholder="MM/YY" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label>CVV</label><br>
+                                    <input type="text" placeholder="123" disabled>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="checkout-group">
-                       <h2>Order Summary</h2>
-                       <div class="order-items">
-                           <div class="order-item">
-                               <div class="order-item-left">
-                                  <img src="images/placeholder.svg" alt="">
-                                  <div class="count">3</div>
-                                  <div class="order-item-left-desc">
-                                    <h3>Classic CheesBurger</h3>  
-                                    <span>Burger Palace</span>
-                                  </div>
-                               </div>
-                               <div class="order-item-right">
-                                  <span>$26.97</span>
-                               </div>
-                           </div>
-                           <div class="order-item">
-                               <div class="order-item-left">
-                                  <img src="images/placeholder.svg" alt="">
-                                  <div class="count">1</div>
-                                  <div class="order-item-left-desc">
-                                    <h3>Bacon Deluxe</h3>  
-                                    <span>Burger Palace</span>
-                                  </div>
-                               </div>
-                               <div class="order-item-right">
-                                  <span>$26.97</span>
-                               </div>
-                           </div>
-                       </div>
-                       <div class="order_division"></div>
-                       <div class="total_container">
-                          <div class="total_row">
-                             <span>SubTotal</span>
-                             <span>$37.96</span>
-                          </div>
-                          <div class="total_row">
-                             <span>Delivery Free</span>
-                             <span>$1.99</span>
-                          </div>
-                          <div class="total_row">
-                             <span>Service Fee</span>
-                             <span>$0.99</span>
-                          </div>
-                       </div> 
-                       <div class="order_division"></div>
-                       <div class="total_price">
-                         <span>Total</span>
-                         <span>$44.17</span>
-                       </div>
+                    <div class="checkout-order">
+                        <div class="checkout-group">
+                        <h2>Order Summary</h2>
+                        <div class="order-items">
+                            
+                        </div>
+                        <div class="order_division"></div>
+                        <div class="total_container">
+                            <div class="total_row">
+                                <span>SubTotal</span>
+                                <span id="order_subtotal"></span>
+                            </div>
+                            <div class="total_row">
+                                <span>Delivery Free</span>
+                                <span>$1.99</span>
+                            </div>
+                            <div class="total_row">
+                                <span>Service Fee</span>
+                                <span>$0.99</span>
+                            </div>
+                        </div> 
+                        <div class="order_division"></div>
+                        <div class="total_price">
+                            <span>Total</span>
+                            <span id="total_price_value">$44.17</span>
+                        </div>
+                        </div>
+                    
+                        <a id="checkout-btn" href="#">
+                            Place Order <span>-</span> <span id="order_btn_price">$44.17</span>
+                        </a>
                     </div>
-                    <a class="checkout-btn" href="#">
-                        Place Order <span>-</span> $44.17
-                    </a>
                    </form>
                </div>
           </div>
@@ -180,6 +163,6 @@
    <footer>
        <p>&copy; 2025 AzFoodDelivery. Tous droits réservés.</p>
    </footer>
-   <script src="js/main.js"  type="module"></script>
+   <script src="js/checkout.js"  type="module"></script>
 </body>
 </html>

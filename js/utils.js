@@ -5,3 +5,8 @@ export const getCartItems = () => {
 export const saveCartItems = (arr) => {
     localStorage.setItem('items',JSON.stringify(arr));
 }
+
+export const getTotalPrice =  (arr) => {
+  return  arr.reduce((accumulator, currentValue) => accumulator + (currentValue.quantity*currentValue.price), 0);
+}
+
