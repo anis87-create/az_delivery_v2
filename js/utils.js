@@ -10,3 +10,11 @@ export const getTotalPrice =  (arr) => {
   return  arr.reduce((accumulator, currentValue) => accumulator + (currentValue.quantity*currentValue.price), 0);
 }
 
+export const getOrders = () => {
+   return localStorage.getItem('orders')?.length>0 ? JSON.parse(localStorage.getItem('orders')) : [];
+}
+
+export const saveOrders = (arr) => {
+    localStorage.setItem('orders',JSON.stringify(arr));
+}
+
