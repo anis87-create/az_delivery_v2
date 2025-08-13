@@ -6,8 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const mainOrders = () => {
     const orders = getOrders();
-    console.log(orders);
-    
     orders.forEach(order => {
         const orderElt = document.createElement('div');
         orderElt.classList.add('order');
@@ -29,7 +27,7 @@ const mainOrders = () => {
         const orderItemEltText = document.createTextNode(itemsName.join(', '));
         if(orderItemElt){
             orderItemElt.appendChild(orderItemEltText);
-        }
+        }        
         const now = new Date();
         const date = new Date(order.created_at);
         const orderDate = document.createElement('p');

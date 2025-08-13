@@ -1,17 +1,14 @@
-import { getCartItems, getTotalPrice } from "./utils.js";
+import { getCartItems, getOrders, getTotalPrice, saveOrders } from "./utils.js";
 document.addEventListener('DOMContentLoaded', () => {
-   mainCheckout();
+   checkoutUI();
 });
 
 
-const mainCheckout = () => {
-   checkoutUI();
-}
 
 
 
 const checkoutUI = () => {
-   let orders = [];
+   let orders = getOrders() || [];
    const items = getCartItems();
    const itemsContainer = document.querySelector('.order-items');
    items.forEach(item => {
@@ -60,8 +57,16 @@ const checkoutUI = () => {
    if (totalPriceElt) totalPriceElt.innerText = `$${Math.round(totalPrice*100)/100}`;
    document.getElementById('order_btn_price').innerText= `$${Math.round(totalPrice*100)/100}`;
    const checkoutBtn = document.getElementById('checkout-btn');
+  
+   
    if(checkoutBtn){
-       document.getElementById('checkout-btn').addEventListener('click', () => {
+   document.getElementById('checkout-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+      const fullNameValue = document.querySelector('[name="fullName"]').value;
+      const phoneValue = document.querySelector('[name="phoneNumber"]').value;
+      const addressValue = document.querySelector('[name="address"]').value;
+      const cityValue = document.querySelector('[name="city"]').value;
+      const zipCodeValue = document.querySelector('[name="zipcode"]').value;
       let confirmation = confirm('do you want to confirm this order ?');
       if(confirmation){
          if(items.length>0){
@@ -75,24 +80,24 @@ const checkoutUI = () => {
                name:'Burger Palace'
             },
             customer: {
-               name: "John Doe",
-               phone: "06 12 34 56 78",
-               address: "123 Rue de la Paix, 75001 Paris",
-               instructions: "2ème étage, porte droite"
+               fullName: fullNameValue,
+               phone: phoneValue,
+               address: addressValue,
+               city: cityValue,
+               zipcode: zipCodeValue,
+               instructions: ""
             },
             items,
             subTotal: subTotalPrice,
             deliveryFee: 1.99,
             totalPrice
          });
-         localStorage.setItem('orders', JSON.stringify(orders));
+         saveOrders(orders);
+         alert(`ORDER-${uuid} confirmed`);
          localStorage.setItem('items', []);
          }
-       
       }else {
-         alert('no');
-         console.log(localStorage.getItem('orders'));
-         
+         return;
       }
    });
    }
