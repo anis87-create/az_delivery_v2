@@ -1,18 +1,20 @@
-import { getOrders } from "./utils.js";
+import { getFromStorage } from "../../src/utils/storage.js";
 
 document.addEventListener('DOMContentLoaded', () => {
    mainOrders();
 });
 
 const mainOrders = () => {
-    const orders = getOrders();
-    orders.forEach(order => {
+    const orders = getFromStorage('orders');
+    
+    if(orders.length>0){
+ orders?.forEach(order => {
         const orderElt = document.createElement('div');
         orderElt.classList.add('order');
         const orderEltDesc = document.createElement('div');
         orderEltDesc.classList.add('order-desc');
         const imgElt = document.createElement('img');
-        imgElt.src ='/images/placeholder.svg';
+        imgElt.src ='/public/images/placeholder.svg';
         imgElt.alt='';
         const orderDescContentElt = document.createElement('div');
         orderDescContentElt.classList.add('order-desc-content');
@@ -77,4 +79,6 @@ const mainOrders = () => {
         }
     });
     
+    }
+   
 }

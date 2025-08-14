@@ -1,11 +1,11 @@
-import { saveCartItems, getCartItems, getTotalPrice } from "./utils.js";
+import {   getTotalPrice, getFromStorage, saveToStorage } from "../../src/utils/storage.js";
 
 
 document.addEventListener('DOMContentLoaded', () => {
    mainCart();
 });
 const mainCart  = () => {
-    setupAddButtons();
+    setupAddButtonsOfItems();
     displayCartCount();
     loadCartItems();
     clearItems();
@@ -13,7 +13,7 @@ const mainCart  = () => {
 }
 
 
-const setupAddButtons = () => {
+const setupAddButtonsOfItems = () => {
    const buttons = document.querySelectorAll('.add-to-cart');
    let items = [];
    let id = 0;
@@ -22,7 +22,7 @@ const setupAddButtons = () => {
       const itemElement = button.closest('.item-desc');
       const name = itemElement.querySelector('h3')?.textContent;
 
-      const cartItems =   getCartItems() || [];  
+      const cartItems =   getFromStorage('items') || [];  
       const item = cartItems.find(item => item.name === name);
       if(!item || item.quantity === 0){
          button.style.display = 'block';
@@ -60,25 +60,25 @@ const setupAddButtons = () => {
                items[index].quantity = numberOfItems;
             }
       
-            saveCartItems(items);
+            saveToStorage('items',items)
             displayCartCount();
          });
          buttonMinus.addEventListener('click', (e) => {       
             e.preventDefault();
             let numberOfItems = Number(e.target.nextElementSibling.textContent);
             numberOfItems--;
-            items = getCartItems() || [];
+            items = getFromStorage('items') || [];
             e.target.nextElementSibling.textContent = numberOfItems;  
             const index = items.findIndex(item => item.name === name);
             if (index !== -1) {
                items[index].quantity = numberOfItems;
             }
-            saveCartItems(items);
+            saveToStorage('items', items);
          if(numberOfItems === 0){
                div.style.display='none';
                button.style.display = 'block';
                const itemName = e.target.parentElement.parentElement.parentElement.children[0].textContent;
-               removeFromCart(getCartItems(), itemName);   
+               removeFromCart(getFromStorage('items'), itemName);   
                displayCartCount();
          }    
          
@@ -109,7 +109,7 @@ const setupAddButtons = () => {
          const name = item.children[0].textContent;
          const ingredients = item.children[item.children[0].nextElementSibling.tagName==='SPAN' ? 2:1].textContent;
          const price =  Number(item.children[item.children[0].nextElementSibling.tagName==='SPAN' ? 3:2].children[0].textContent.split('')[1]);
-         items = getCartItems() || [];
+         items = getFromStorage('items') || [];
          const index = items.findIndex(item => item.name === name);     
          if (index !== -1) {
             items[index].quantity = 1;
@@ -129,7 +129,7 @@ const setupAddButtons = () => {
                items[index].quantity = numberOfItems;
             }
       
-            saveCartItems(items);
+            saveToStorage('items', items)
             displayCartCount();
          });
          
@@ -140,19 +140,19 @@ const setupAddButtons = () => {
             e.preventDefault();
             let numberOfItems = Number(e.target.nextElementSibling.textContent);
             numberOfItems--;
-            items = getCartItems() || [];
+            items = getFromStorage('items') || [];
             e.target.nextElementSibling.textContent = numberOfItems;  
             const index = items.findIndex(item => item.name === name);
             if (index !== -1) {
                items[index].quantity = numberOfItems;
             }
-            saveCartItems(items);               
+            saveToStorage('items', items)              
             if(items[index].quantity === 0){
                div.style.display='none';
                itemButton.style.display = 'block';
                const itemName = e.target.parentElement.parentElement.parentElement.children[0].textContent;
                items = removeFromCart(items, itemName);   
-               saveCartItems(items);              
+               saveToStorage('items', items);            
                displayCartCount();
          }     
 
@@ -169,7 +169,7 @@ const setupAddButtons = () => {
 
 const addToCart = (arr, item) => {
   arr.push(item);
-  saveCartItems(arr);
+  saveToStorage('items', arr);
   localStorage.setItem('numberOfItems', 0);
   displayCartCount();  
 }
@@ -197,7 +197,7 @@ const displayCartCount = () => {
 
    const oldNotif = cartIcon.querySelector('.cart-notification');
    if (oldNotif) cartIcon.removeChild(oldNotif);
-   const items = getCartItems() || [];
+   const items = getFromStorage('items') || [];
    const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
 
   
@@ -229,7 +229,7 @@ const displayCartCount = () => {
   
 
 const loadCartItems = () => {
-   let items =  getCartItems();
+   let items =  getFromStorage('items');
    if (!items || items.length === 0) {
        EmptyCartUI(); // Afficher l'état vide dès le début
        return;
@@ -242,7 +242,7 @@ const loadCartItems = () => {
       const cartItemDesc = document.createElement('div');
       cartItemDesc.classList.add('cart-item-desc');
       const cartItemImg = document.createElement('img');
-      cartItemImg.src="images/placeholder.svg";
+      cartItemImg.src="/public/images/placeholder.svg";
       cartItemImg.alt="";
       const cartItemInfo = document.createElement('div');
       cartItemInfo.classList.add("cart-item-info");
@@ -292,7 +292,7 @@ const loadCartItems = () => {
      btnDelete.addEventListener('click', (e) => {
        e.preventDefault();
        items = removeFromCart(items, item.name);
-       saveCartItems(items);
+       saveToStorage('items', items)
        displayCartCount();
        cartItem.remove();
        if(items.length === 0){
@@ -319,7 +319,7 @@ const loadCartItems = () => {
                items[index].quantity = numberOfItems;
             }
             
-            saveCartItems(items);
+            saveToStorage('items', items)
 
             displayCartCount();
             
@@ -344,11 +344,11 @@ const loadCartItems = () => {
          }
 
          
-         saveCartItems(items);
+         saveToStorage('items', items);
           if(items[index].quantity  === 0){
             const itemName = e.target.parentElement.previousElementSibling.children[1].children[0].textContent;
             e.target.parentElement.parentElement.style.display = 'none';
-            removeFromCart(getCartItems(), itemName);   
+            removeFromCart(getFromStorage('items'), itemName);   
             displayCartCount();
           }  
 
@@ -398,7 +398,7 @@ const clearItems = () => {
    if(btnClear){
    btnClear.addEventListener('click', function(e){
       e.preventDefault();
-      localStorage.setItem('items', []);    
+      saveToStorage('items',[]) 
       EmptyCartUI();
       displayCartCount();
    })
@@ -407,7 +407,7 @@ const clearItems = () => {
 
 
 const updateOrder = () => {
-   const arr = getCartItems();
+   const arr = getFromStorage('items');
    const subTotal = getTotalPrice(arr);
    const subTotalElt = document.getElementById('subtotal');
    if(subTotalElt){

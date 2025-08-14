@@ -1,4 +1,5 @@
-import { getCartItems, getOrders, getTotalPrice, saveOrders } from "./utils.js";
+import { DELIVERY_FREE, SERVICE_FREE } from "../../src/utils/config.js";
+import { getFromStorage, getTotalPrice, saveToStorage } from "../../src/utils/storage.js";
 document.addEventListener('DOMContentLoaded', () => {
    checkoutUI();
 });
@@ -8,8 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 const checkoutUI = () => {
-   let orders = getOrders() || [];
-   const items = getCartItems();
+   let orders = getFromStorage('orders') || [];
+   const items = getFromStorage('items');
    const itemsContainer = document.querySelector('.order-items');
    items.forEach(item => {
       const itemElt = document.createElement('div');
@@ -17,7 +18,7 @@ const checkoutUI = () => {
       const itemEltLeft = document.createElement('div');
       itemEltLeft.classList.add('order-item-left');
       const itemImg = document.createElement('img');
-      itemImg.src='images/placeholder.svg';
+      itemImg.src='/public/images/placeholder.svg';
       item.alt='';
       itemEltLeft.appendChild(itemImg);
       const itemCount = document.createElement('div');
@@ -48,11 +49,11 @@ const checkoutUI = () => {
       }
      
    });
-   const subTotalPrice = getTotalPrice(getCartItems());
+   const subTotalPrice = getTotalPrice(getFromStorage('items'));
    const orderSubtotalElt = document.getElementById('order_subtotal');
    if (orderSubtotalElt) orderSubtotalElt.innerText = `$${subTotalPrice}`;
 
-   const totalPrice = subTotalPrice + 1.99 + 0.99;
+   const totalPrice = subTotalPrice + DELIVERY_FREE + SERVICE_FREE;
    const totalPriceElt = document.getElementById('total_price_value');
    if (totalPriceElt) totalPriceElt.innerText = `$${Math.round(totalPrice*100)/100}`;
    document.getElementById('order_btn_price').innerText= `$${Math.round(totalPrice*100)/100}`;
@@ -92,9 +93,11 @@ const checkoutUI = () => {
             deliveryFee: 1.99,
             totalPrice
          });
-         saveOrders(orders);
+
+         
+         saveToStorage('orders', orders);
          alert(`ORDER-${uuid} confirmed`);
-         localStorage.setItem('items', []);
+         saveToStorage('items',[]);
          }
       }else {
          return;

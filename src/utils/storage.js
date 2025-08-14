@@ -1,9 +1,9 @@
-export const getCartItems = () => {
-    return localStorage.getItem('items')?.length>0 ? JSON.parse(localStorage.getItem('items')).filter(item => item.quantity !== 0) : [];
+export const getFromStorage = (str) => {
+    return localStorage.getItem(str)?.length>0 ? JSON.parse(localStorage.getItem(str)) : [];
 }
 
-export const saveCartItems = (arr) => {
-    localStorage.setItem('items',JSON.stringify(arr));
+export const saveToStorage = (str, arr) => {
+    localStorage.setItem(str,JSON.stringify(arr));
 }
 
 export const getTotalPrice =  (arr) => {
