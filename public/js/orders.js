@@ -1,14 +1,18 @@
-import { getFromStorage } from "../../src/utils/storage.js";
+import { orderService } from "../../src/services/orderService.js";
+import { getPriceRounded } from "../../src/utils/helpers.js";
 
 document.addEventListener('DOMContentLoaded', () => {
    mainOrders();
+   //orderService.clear();
 });
 
 const mainOrders = () => {
-    const orders = getFromStorage('orders');
+    const orders = orderService.load();
     
     if(orders.length>0){
- orders?.forEach(order => {
+     orders?.forEach(order => {
+        console.log(order);
+        
         const orderElt = document.createElement('div');
         orderElt.classList.add('order');
         const orderEltDesc = document.createElement('div');
@@ -25,8 +29,8 @@ const mainOrders = () => {
         }
         const orderItemElt = document.createElement('p');
         orderItemElt.classList.add('order-items');
-        const itemsName = order.items.map(item => item.name);
-        const orderItemEltText = document.createTextNode(itemsName.join(', '));
+        const itemsName = order?.items?.map(item => item.name);
+        const orderItemEltText = document.createTextNode(itemsName?.join(', '));
         if(orderItemElt){
             orderItemElt.appendChild(orderItemEltText);
         }        
@@ -44,14 +48,13 @@ const mainOrders = () => {
         });
         const formatted =   (isToday ? "Today, " : "") + timeString.replace(" ", "");
 
-
         const orderDateText = document.createTextNode(formatted);
         if(orderDate){
            orderDate.appendChild(orderDateText);
         }
         const orderPriceElt = document.createElement('span');
         orderPriceElt.classList.add('order-price');
-        const orderPriceEltTxt = document.createTextNode(`$${Math.round(order.totalPrice*100)/100}`);
+        const orderPriceEltTxt = document.createTextNode(`$${getPriceRounded(totalPrice)}`);
         if(orderPriceElt){
           orderPriceElt.appendChild(orderPriceEltTxt);
         }
@@ -77,8 +80,7 @@ const mainOrders = () => {
             orderElt.appendChild(orderStatusElt);
             document.querySelector('.orders-content').appendChild(orderElt);
         }
-    });
-    
+     });
     }
    
 }

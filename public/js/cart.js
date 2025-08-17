@@ -1,15 +1,18 @@
-import {   getTotalPrice, getFromStorage, saveToStorage } from "../../src/utils/storage.js";
+import { cartService } from "../../src/services/cartService.js";
 
 
 document.addEventListener('DOMContentLoaded', () => {
-   mainCart();
+   initCart();
+   if(cartService.load().every(item => item.quantity === 0)){
+      EmptyCartUI();
+   }
 });
-const mainCart  = () => {
+const initCart  = () => {
     setupAddButtonsOfItems();
     displayCartCount();
     loadCartItems();
     clearItems();
-    updateOrder();
+    updateCheckout();
 }
 
 
@@ -22,8 +25,8 @@ const setupAddButtonsOfItems = () => {
       const itemElement = button.closest('.item-desc');
       const name = itemElement.querySelector('h3')?.textContent;
 
-      const cartItems =   getFromStorage('items') || [];  
-      const item = cartItems.find(item => item.name === name);
+      const cartItems =   cartService.load(); 
+      const item = cartItems?.find(item => item.name === name);
       if(!item || item.quantity === 0){
          button.style.display = 'block';
       }
@@ -52,7 +55,7 @@ const setupAddButtonsOfItems = () => {
             let numberOfItems = Number(e.target.previousElementSibling.textContent);
 
             numberOfItems++;
-            items = JSON.parse(localStorage.getItem('items')) || [];
+            items = cartService.load();
             e.target.previousElementSibling.textContent = numberOfItems;
       
             const index = items.findIndex(item => item.name === name);         
@@ -60,27 +63,28 @@ const setupAddButtonsOfItems = () => {
                items[index].quantity = numberOfItems;
             }
       
-            saveToStorage('items',items)
+            cartService.save(items);
             displayCartCount();
          });
          buttonMinus.addEventListener('click', (e) => {       
             e.preventDefault();
             let numberOfItems = Number(e.target.nextElementSibling.textContent);
             numberOfItems--;
-            items = getFromStorage('items') || [];
+            items = cartService.load();
             e.target.nextElementSibling.textContent = numberOfItems;  
             const index = items.findIndex(item => item.name === name);
             if (index !== -1) {
                items[index].quantity = numberOfItems;
             }
-            saveToStorage('items', items);
-         if(numberOfItems === 0){
-               div.style.display='none';
-               button.style.display = 'block';
-               const itemName = e.target.parentElement.parentElement.parentElement.children[0].textContent;
-               removeFromCart(getFromStorage('items'), itemName);   
-               displayCartCount();
-         }    
+            cartService.save(items);
+            if(numberOfItems === 0){
+                  div.style.display='none';
+                  button.style.display = 'block';
+                  const itemName = e.target.parentElement.parentElement.parentElement.children[0].textContent;
+                  const cartItems =cartService.load();
+                  cartService.removeFromCart(cartItems, itemName);   
+                  displayCartCount();
+            }    
          
          displayCartCount();
          });
@@ -109,27 +113,32 @@ const setupAddButtonsOfItems = () => {
          const name = item.children[0].textContent;
          const ingredients = item.children[item.children[0].nextElementSibling.tagName==='SPAN' ? 2:1].textContent;
          const price =  Number(item.children[item.children[0].nextElementSibling.tagName==='SPAN' ? 3:2].children[0].textContent.split('')[1]);
-         items = getFromStorage('items') || [];
-         const index = items.findIndex(item => item.name === name);     
+         items = cartService.load();
+         const index = items.findIndex(item => item.name === name);   
+
          if (index !== -1) {
             items[index].quantity = 1;
+            cartService.save(items);
+            displayCartCount();
+         }else {
+          cartService.addToCart(items, {id: ++id,quantity: 1, name, ingredients, price}, () => {
+            displayCartCount();
+          })
          }
-
-         addToCart(items, {id: ++id,quantity: 1, name, ingredients, price});  
          buttonPlus.addEventListener('click', (e) => {
             e.preventDefault();
             let numberOfItems = Number(e.target.previousElementSibling.textContent);
 
             numberOfItems++;
-            items = JSON.parse(localStorage.getItem('items')) || [];
+            items = cartService.load();
             e.target.previousElementSibling.textContent = numberOfItems;
       
             const index = items.findIndex(item => item.name === name);         
             if (index !== -1) {
                items[index].quantity = numberOfItems;
             }
-      
-            saveToStorage('items', items)
+
+            cartService.save(items);
             displayCartCount();
          });
          
@@ -140,22 +149,21 @@ const setupAddButtonsOfItems = () => {
             e.preventDefault();
             let numberOfItems = Number(e.target.nextElementSibling.textContent);
             numberOfItems--;
-            items = getFromStorage('items') || [];
+            items = cartService.load();
             e.target.nextElementSibling.textContent = numberOfItems;  
             const index = items.findIndex(item => item.name === name);
             if (index !== -1) {
                items[index].quantity = numberOfItems;
             }
-            saveToStorage('items', items)              
+            cartService.save(items);            
             if(items[index].quantity === 0){
                div.style.display='none';
                itemButton.style.display = 'block';
                const itemName = e.target.parentElement.parentElement.parentElement.children[0].textContent;
-               items = removeFromCart(items, itemName);   
-               saveToStorage('items', items);            
+               items = cartService.removeFromCart(items, itemName);                  
+               cartService.save(items);            
                displayCartCount();
          }     
-
          
          displayCartCount();
          });
@@ -167,17 +175,6 @@ const setupAddButtonsOfItems = () => {
 
 
 
-const addToCart = (arr, item) => {
-  arr.push(item);
-  saveToStorage('items', arr);
-  localStorage.setItem('numberOfItems', 0);
-  displayCartCount();  
-}
-const removeFromCart = (arr, itemName) => {
-  const foundedItemById = arr.find(item  => item.name === itemName)?.id;
-  const updatedItems = arr.filter(item => item?.id !== foundedItemById);
-  return updatedItems; 
-}
 const UIButton = (button) => {
    button.style.background= '#f9fafb';
    button.style.boxShadow='rgba(0, 0, 0, 0.16) 0px 1px 4px;'
@@ -197,8 +194,8 @@ const displayCartCount = () => {
 
    const oldNotif = cartIcon.querySelector('.cart-notification');
    if (oldNotif) cartIcon.removeChild(oldNotif);
-   const items = getFromStorage('items') || [];
-   const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
+   const items = cartService.load();
+   const totalQuantity = items?.reduce((acc, item) => acc + item.quantity, 0);
 
   
   if (totalQuantity > 0) {
@@ -229,8 +226,8 @@ const displayCartCount = () => {
   
 
 const loadCartItems = () => {
-   let items =  getFromStorage('items');
-   if (!items || items.length === 0) {
+   let items =  cartService.load();
+   if (!items || items?.length === 0) {
        EmptyCartUI(); // Afficher l'état vide dès le début
        return;
    }
@@ -291,8 +288,8 @@ const loadCartItems = () => {
      const btnDelete = cartItem.children[1].children[3];
      btnDelete.addEventListener('click', (e) => {
        e.preventDefault();
-       items = removeFromCart(items, item.name);
-       saveToStorage('items', items)
+       items = cartService.removeFromCart(items, item.name)
+       cartService.save(items);
        displayCartCount();
        cartItem.remove();
        if(items.length === 0){
@@ -307,9 +304,7 @@ const loadCartItems = () => {
    Array.from(btnPluselements).forEach((item ) => {
       item.addEventListener('click', function(e){
          let numberOfItems = Number(e.target.previousElementSibling.textContent);
-
             numberOfItems++;
-      
             e.target.previousElementSibling.textContent = numberOfItems;
 
             const name = e.target.parentElement.previousElementSibling.children[1].children[0].textContent;
@@ -319,7 +314,7 @@ const loadCartItems = () => {
                items[index].quantity = numberOfItems;
             }
             
-            saveToStorage('items', items)
+            cartService.save(items);
 
             displayCartCount();
             
@@ -331,7 +326,6 @@ const loadCartItems = () => {
    Array.from(btnMinusElements).forEach((item) =>{
      item.addEventListener('click', function(e){
        let numberOfItems = Number(e.target.nextElementSibling.textContent);
-
          numberOfItems--;
    
          e.target.nextElementSibling.textContent = numberOfItems;
@@ -344,15 +338,14 @@ const loadCartItems = () => {
          }
 
          
-         saveToStorage('items', items);
+          cartService.save(items);
           if(items[index].quantity  === 0){
             const itemName = e.target.parentElement.previousElementSibling.children[1].children[0].textContent;
             e.target.parentElement.parentElement.style.display = 'none';
-            removeFromCart(getFromStorage('items'), itemName);   
+            cartService.removeFromCart(cartService.load(), itemName);   
             displayCartCount();
           }  
-
-         if(getCartItems().length === 0){
+         if(cartService.load().every(item => item.quantity === 0)){
             EmptyCartUI();
           }
          displayCartCount();
@@ -398,7 +391,7 @@ const clearItems = () => {
    if(btnClear){
    btnClear.addEventListener('click', function(e){
       e.preventDefault();
-      saveToStorage('items',[]) 
+      cartService.clear();
       EmptyCartUI();
       displayCartCount();
    })
@@ -406,9 +399,13 @@ const clearItems = () => {
 }
 
 
-const updateOrder = () => {
-   const arr = getFromStorage('items');
-   const subTotal = getTotalPrice(arr);
+const updateCheckout = () => {
+   const cartItems = cartService.load();
+   let subTotal = 0;
+   if(cartItems){
+     subTotal = cartService.getSubTotalPrice(cartItems);
+   }
+
    const subTotalElt = document.getElementById('subtotal');
    if(subTotalElt){
    subTotalElt.innerText = `$${subTotal}`;
@@ -416,7 +413,7 @@ const updateOrder = () => {
    const totalValueElt = document.getElementById('total_value');
    
 
-   const total =  subTotal + 1.99 + 0.76;
+   const total =  cartService.getTotalPrice();
    if(totalValueElt){
    totalValueElt.innerText= `$${total}`
    }

@@ -6,7 +6,6 @@
 }
 :root {
     --header-height: 130px;
-    --white: white;
     --primary-color: #22C55E;
     --green-dark:   #48bb78;
     --secondary-color:  rgb(249 115 22 / 0.9);
@@ -81,7 +80,7 @@ header {
     width: 100%;
     top: 0;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    background: var(--white);
+    background: white;
     z-index: 50;
 }
 section {
@@ -107,7 +106,7 @@ section {
 
 .header-logo h1 {
     margin-left: 8px;
-    fontw-weight: 600;
+    font-weight: 600;
     font-size: 1.125rem;
     line-height: 1.75rem;
     display: none;
@@ -177,7 +176,7 @@ section {
     font-size: 20px;
 }
 .slider-content-desc button {
-    background: var(--white);
+    background: whitek;
     padding: 10px;
     border-radius: 3em;
     transition: background .5s;
@@ -217,7 +216,7 @@ section {
     width: 40px;
   height: 40px;
   border-radius: 50%; /* rend le bouton circulaire */
-  background-color: var(--white);
+  background-color: white;
   cursor: pointer;
   display:flex;
   align-items: center;
@@ -238,7 +237,7 @@ section {
     margin: 10px 0px;
 }
 .category {
-    witdh: 80px;
+    width: 80px;
     height: 80px;
     display: flex;
     justify-content: center;
@@ -485,7 +484,7 @@ footer {
         display: block;
         margin-left: 10px;
         background-position: 5px 11px;
-        background-image: url('../images/icons8-search-middle-gray-desktop-25 .png');
+        background-image: url('../images/icons8-search-middle-gray-desktop-25.png');
         background-color: white;
         padding-left: 30px;
     }

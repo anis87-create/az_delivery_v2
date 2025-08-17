@@ -1,5 +1,6 @@
-import { DELIVERY_FREE, SERVICE_FREE } from "../../src/utils/config.js";
-import { getFromStorage, getTotalPrice, saveToStorage } from "../../src/utils/storage.js";
+import { cartService } from "../../src/services/cartService.js";
+import { orderService } from "../../src/services/orderService.js";
+import { getPriceRounded } from "../../src/utils/helpers.js";
 document.addEventListener('DOMContentLoaded', () => {
    checkoutUI();
 });
@@ -9,10 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 const checkoutUI = () => {
-   let orders = getFromStorage('orders') || [];
-   const items = getFromStorage('items');
+   let orders = orderService.load();
+   const cartItems = cartService.load();
    const itemsContainer = document.querySelector('.order-items');
-   items.forEach(item => {
+   cartItems.forEach(item => {
       const itemElt = document.createElement('div');
       itemElt.classList.add('order-item');
       const itemEltLeft = document.createElement('div');
@@ -49,14 +50,17 @@ const checkoutUI = () => {
       }
      
    });
-   const subTotalPrice = getTotalPrice(getFromStorage('items'));
+   
+   const subTotalPrice =cartService.getSubTotalPrice(cartService.load());
+  
    const orderSubtotalElt = document.getElementById('order_subtotal');
    if (orderSubtotalElt) orderSubtotalElt.innerText = `$${subTotalPrice}`;
 
-   const totalPrice = subTotalPrice + DELIVERY_FREE + SERVICE_FREE;
+   const totalPrice = getPriceRounded(subTotalPrice);   
    const totalPriceElt = document.getElementById('total_price_value');
-   if (totalPriceElt) totalPriceElt.innerText = `$${Math.round(totalPrice*100)/100}`;
-   document.getElementById('order_btn_price').innerText= `$${Math.round(totalPrice*100)/100}`;
+   if (totalPriceElt) totalPriceElt.innerText = getPriceRounded(totalPrice);
+   
+   document.getElementById('order_btn_price').innerText= getPriceRounded(totalPrice);
    const checkoutBtn = document.getElementById('checkout-btn');
   
    
@@ -70,8 +74,8 @@ const checkoutUI = () => {
       const zipCodeValue = document.querySelector('[name="zipcode"]').value;
       let confirmation = confirm('do you want to confirm this order ?');
       if(confirmation){
-         if(items.length>0){
-        const uuid = crypto.randomUUID();
+         if(cartItems.length>0){
+         const uuid = crypto.randomUUID();
          orders.push({
             id: `ORDER-${uuid}`,
             created_at: new Date(),
@@ -88,16 +92,16 @@ const checkoutUI = () => {
                zipcode: zipCodeValue,
                instructions: ""
             },
-            items,
+            items:cartItems,
             subTotal: subTotalPrice,
             deliveryFee: 1.99,
             totalPrice
          });
 
          
-         saveToStorage('orders', orders);
+         orderService.save(orders);
          alert(`ORDER-${uuid} confirmed`);
-         saveToStorage('items',[]);
+         cartService.clear();
          }
       }else {
          return;
