@@ -19,19 +19,19 @@ export const restaurants = [
                name:'Veggie Burger',
                ingredients: ['Plant-based patty','lettuce','tomato','onion','pickles','vegan mayo'],
                price: 9.99,
-               category:'burger'
+               category:'burgers'
             },
             {
                name:'Double Trouble',
                ingredients: ['Two beef patties','double cheese','lettuce','tomato','onion','special sauce'],
                price: 12.99,
-               category:'burger'
+               category:'burgers'
             },
             {
                name:'Mushroom Swiss',
                ingredients: ['Beef patty','sautéed mushrooms','swiss cheese','truffle aioli'],
                price: 11.99,
-               category:'burger'
+               category:'burgers'
             },
             {
                name:'French Fries',

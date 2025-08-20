@@ -15,7 +15,7 @@ const loadRestaurants = () => {
       restaurantElt.dataset.tags = JSON.stringify(restaurant.tags);
       restaurantElt.dataset.time = restaurant.time;
       const restaurantLink = document.createElement('a');
-      restaurantLink.href = `/src/restaurant.html?id=${restaurant.id}`;
+      restaurantLink.href = `/src/pages/restaurant.html?id=${restaurant.id}`;
       const imgContainerrElt = document.createElement('div');
       imgContainerrElt.classList.add('restaurant_img');
       const restaurantOpacityElt = document.createElement('div');
