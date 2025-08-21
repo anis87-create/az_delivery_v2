@@ -1,8 +1,10 @@
+import { restaurants } from "../../data/restaurants.js";
 import { cartService } from "../../src/services/cartService.js";
 
 
 document.addEventListener('DOMContentLoaded', () => {
    initCart();
+   //cartService.clear();
    if(cartService.load().every(item => item.quantity === 0)){
       EmptyCartUI();
    }
@@ -20,7 +22,8 @@ const setupAddButtonsOfItems = () => {
    const buttons = document.querySelectorAll('.add-to-cart');
    let items = [];
    let id = 0;
-
+   const params = new URLSearchParams(window.location.search);
+   const restaurantId = params.get('id');
    buttons.forEach(button => {
       const itemElement = button.closest('.item-desc');
       const name = itemElement.querySelector('h3')?.textContent;
@@ -115,13 +118,12 @@ const setupAddButtonsOfItems = () => {
          const price =  Number(item.children[item.children[0].nextElementSibling.tagName==='SPAN' ? 3:2].children[0].textContent.split('')[1]);
          items = cartService.load();
          const index = items.findIndex(item => item.name === name);   
-
          if (index !== -1) {
             items[index].quantity = 1;
             cartService.save(items);
             displayCartCount();
          }else {
-          cartService.addToCart(items, {id: ++id,quantity: 1, name, ingredients, price}, () => {
+          cartService.addToCart(items, {id: ++id,quantity: 1, name, ingredients, price, restaurantId}, () => {
             displayCartCount();
           })
          }
@@ -246,15 +248,17 @@ const loadCartItems = () => {
       const itemName = document.createElement('h3');
       const itemNameValue = document.createTextNode(item.name);
       itemName.appendChild(itemNameValue);
-      const restaurantName = document.createElement('span');
-      const restaurantNameValue = document.createTextNode('BurgerPalace');
-      restaurantName.appendChild(restaurantNameValue);
+      const restaurantNameElt = document.createElement('span');      
+      const restaurant = restaurants.find(r => r?.id === Number(item?.restaurantId));
+      
+      const restaurantNameValue = document.createTextNode(restaurant?.name);
+      restaurantNameElt.appendChild(restaurantNameValue);
       const itemPrice = document.createElement('span');
       const itemPriceValue = document.createTextNode(`$${item.price}`);
       itemPrice.appendChild(itemPriceValue);
       cartItemDesc.appendChild(cartItemImg);
       cartItemInfo.appendChild(itemName);
-      cartItemInfo.appendChild(restaurantName);
+      cartItemInfo.appendChild(restaurantNameElt);
       cartItemInfo.append(itemPrice);
       cartItemDesc.appendChild(cartItemInfo);
       const cartItemButtons = document.createElement('div');
