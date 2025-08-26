@@ -1,5 +1,6 @@
 import { restaurants } from "../../data/restaurants.js";
 import { cartService } from "../../src/services/cartService.js";
+import { getPriceRounded } from "../../src/utils/helpers.js";
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
    //cartService.clear();
    if(cartService.load().every(item => item.quantity === 0)){
       EmptyCartUI();
-   }
+   }   
 });
 const initCart  = () => {
     setupAddButtonsOfItems();
@@ -191,7 +192,8 @@ const UIButton = (button) => {
 
 
 const displayCartCount = () => {
-   const cartIcon = document.getElementById('cart');
+   const cartIcon =  document.getElementById('cart') // fallback si header “classique”
+  || document.querySelector('az-navbar')?.shadowRoot?.getElementById('cart');
    if (!cartIcon) return;
 
    const oldNotif = cartIcon.querySelector('.cart-notification');
@@ -249,9 +251,9 @@ const loadCartItems = () => {
       const itemNameValue = document.createTextNode(item.name);
       itemName.appendChild(itemNameValue);
       const restaurantNameElt = document.createElement('span');      
-      const restaurant = restaurants.find(r => r?.id === Number(item?.restaurantId));
+      const restaurantName = cartService.findRestaurantNameByRestaurantId(restaurants, item?.restaurantId);
       
-      const restaurantNameValue = document.createTextNode(restaurant?.name);
+      const restaurantNameValue = document.createTextNode(restaurantName);
       restaurantNameElt.appendChild(restaurantNameValue);
       const itemPrice = document.createElement('span');
       const itemPriceValue = document.createTextNode(`$${item.price}`);
@@ -417,9 +419,10 @@ const updateCheckout = () => {
    const totalValueElt = document.getElementById('total_value');
    
 
-   const total =  cartService.getTotalPrice();
+   const total =   cartService.getTotalPrice(subTotal);
+
    if(totalValueElt){
-   totalValueElt.innerText= `$${total}`
+   totalValueElt.innerText= `$${getPriceRounded(total, 2)}`
    }
 } 
 

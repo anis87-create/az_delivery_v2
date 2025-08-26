@@ -1,4 +1,5 @@
 import { restaurants } from "../../data/restaurants.js";
+import { cartService } from "../../src/services/cartService.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     loadRestaurant();
@@ -7,15 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
 const loadRestaurant = () => {
     const params = new URLSearchParams(window.location.search);
     const restaurantId = params.get('id');
-        console.log(restaurants);
-    const restaurant = restaurants.find(restaurant => restaurant?.id === Number(restaurantId));
-
-    
+    const restaurantName = cartService.findRestaurantNameByRestaurantId(restaurants ,restaurantId);
     const restaurantInfoContentElt = document.querySelector('.restaurant-info-content');
     const restaurantNameElt = document.createElement('h1');
     restaurantNameElt.classList.add('restaurant-name');
-    restaurantNameElt.appendChild(document.createTextNode(restaurant.name));
+    restaurantNameElt.appendChild(document.createTextNode(restaurantName));
     restaurantInfoContentElt.insertBefore(restaurantNameElt, document.querySelector('.restaurant-address'));
+    const restaurant = restaurants.find(restaurant => restaurant?.id === Number(restaurantId));
     const restaurantItems = restaurant.items;
     const objectsByCategory = {};
     restaurantItems.forEach(obj => {

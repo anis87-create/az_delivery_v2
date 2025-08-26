@@ -3,16 +3,13 @@ import { getPriceRounded } from "../../src/utils/helpers.js";
 
 document.addEventListener('DOMContentLoaded', () => {
    mainOrders();
-   //orderService.clear();
+  orderService.clear();
 });
 
 const mainOrders = () => {
-    const orders = orderService.load();
-    
-    if(orders.length>0){
-     orders?.forEach(order => {
-        console.log(order);
-        
+    const orders = orderService.load();    
+    if(orders?.length>0){
+     orders[0]?.orders?.forEach(order => {    
         const orderElt = document.createElement('div');
         orderElt.classList.add('order');
         const orderEltDesc = document.createElement('div');
@@ -23,7 +20,7 @@ const mainOrders = () => {
         const orderDescContentElt = document.createElement('div');
         orderDescContentElt.classList.add('order-desc-content');
         const orderRestaurantTitleElt = document.createElement('h3');
-        const orderRestaurantTitleText = document.createTextNode(order.restaurant.name);
+        const orderRestaurantTitleText = document.createTextNode(order?.restaurant?.name);
         if(orderRestaurantTitleElt){
             orderRestaurantTitleElt.appendChild(orderRestaurantTitleText);
         }
@@ -54,7 +51,7 @@ const mainOrders = () => {
         }
         const orderPriceElt = document.createElement('span');
         orderPriceElt.classList.add('order-price');
-        const orderPriceEltTxt = document.createTextNode(`$${getPriceRounded(totalPrice)}`);
+        const orderPriceEltTxt = document.createTextNode(`$${getPriceRounded(order?.totalPrice)}`);
         if(orderPriceElt){
           orderPriceElt.appendChild(orderPriceEltTxt);
         }
@@ -62,7 +59,7 @@ const mainOrders = () => {
         const orderStatusTxt = document.createTextNode('preparing');
         orderStatusElt.classList.add('order-status');
         if(orderStatusElt){
-         orderStatusElt.appendChild(orderStatusTxt);
+            orderStatusElt.appendChild(orderStatusTxt);
         }
        
         if(orderDescContentElt){
@@ -81,6 +78,14 @@ const mainOrders = () => {
             document.querySelector('.orders-content').appendChild(orderElt);
         }
      });
+    }else {
+        console.log('yes');
+        
+        const noOrdersContainer = document.createElement('div');
+        noOrdersContainer.classList.add('no-orders');
+        const noOrdersTextElt = document.createElement('span').appendChild(document.createTextNode('there is no orders!'));
+        noOrdersContainer.appendChild(noOrdersTextElt);
+        document.querySelector('.orders-content').appendChild(noOrdersContainer);
     }
    
 }

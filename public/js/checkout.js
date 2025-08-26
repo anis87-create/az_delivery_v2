@@ -1,12 +1,11 @@
+import { restaurants } from "../../data/restaurants.js";
 import { cartService } from "../../src/services/cartService.js";
 import { orderService } from "../../src/services/orderService.js";
+import { DELIVERY_FREE, SERVICE_FREE } from "../../src/utils/config.js";
 import { getPriceRounded } from "../../src/utils/helpers.js";
 document.addEventListener('DOMContentLoaded', () => {
    checkoutUI();
 });
-
-
-
 
 
 const checkoutUI = () => {
@@ -33,7 +32,8 @@ const checkoutUI = () => {
       itemLeftDescTitle.appendChild(title);
       itemLeftDesc.appendChild(itemLeftDescTitle);
       const restauratnTitleElt = document.createElement('span');
-      const restaurantTitle = document.createTextNode('Burger Palace');
+      const restaurantName = cartService.findRestaurantNameByRestaurantId(restaurants, item?.restaurantId);
+      const restaurantTitle = document.createTextNode(restaurantName);
       restauratnTitleElt.appendChild(restaurantTitle);
       itemLeftDesc.appendChild(restauratnTitleElt);
       itemEltLeft.appendChild(itemLeftDesc);
@@ -52,15 +52,17 @@ const checkoutUI = () => {
    });
    
    const subTotalPrice =cartService.getSubTotalPrice(cartService.load());
-  
+
+   
    const orderSubtotalElt = document.getElementById('order_subtotal');
    if (orderSubtotalElt) orderSubtotalElt.innerText = `$${subTotalPrice}`;
 
    const totalPrice = getPriceRounded(subTotalPrice);   
-   const totalPriceElt = document.getElementById('total_price_value');
-   if (totalPriceElt) totalPriceElt.innerText = getPriceRounded(totalPrice);
+   const totalPriceElt = document.getElementById('total_price_value');   
    
-   document.getElementById('order_btn_price').innerText= getPriceRounded(totalPrice);
+   if (totalPriceElt) totalPriceElt.innerText = totalPrice;
+   
+   document.getElementById('order_btn_price').innerText= totalPrice;
    const checkoutBtn = document.getElementById('checkout-btn');
   
    
@@ -73,34 +75,36 @@ const checkoutUI = () => {
       const cityValue = document.querySelector('[name="city"]').value;
       const zipCodeValue = document.querySelector('[name="zipcode"]').value;
       let confirmation = confirm('do you want to confirm this order ?');
+
       if(confirmation){
          if(cartItems.length>0){
-         const uuid = crypto.randomUUID();
-         orders.push({
-            id: `ORDER-${uuid}`,
+         let groupedOrders = [];  
+         const itemsByRestaurant = cartItems.reduce((acc, it) => {
+         (acc[it.restaurantId] ||= []).push(it);
+         return acc;
+         }, {});
+
+         for (const [rid, items] of Object.entries(itemsByRestaurant)) {
+         const restaurant = restaurants.find(r => r?.id === Number(rid));
+         const subTotal = cartService.getSubTotalPrice(items);
+         const totalPrice = cartService.getTotalPrice(subTotal);
+         const order = {
+            id: `ORDER-${crypto.randomUUID()}`,
             created_at: new Date(),
-            status:'preparing',
-            restaurant: {
-               id: 1,
-               name:'Burger Palace'
-            },
-            customer: {
-               fullName: fullNameValue,
-               phone: phoneValue,
-               address: addressValue,
-               city: cityValue,
-               zipcode: zipCodeValue,
-               instructions: ""
-            },
-            items:cartItems,
-            subTotal: subTotalPrice,
+            status: 'preparing',
+            restaurant: { id: restaurant.id, name: restaurant.name },
+            items,
+            subTotal,
             deliveryFee: 1.99,
             totalPrice
-         });
-
-         
+         };
+         groupedOrders.push(order); // tu fais déjà push/save aujourd’hui:contentReference[oaicite:11]{index=11}
+         }
+         orders = [{orders: groupedOrders},
+           {customer: { fullName: fullNameValue, phone: phoneValue, address:addressValue, city:cityValue, zipcode:zipCodeValue, instructions: "" }},
+         ]
          orderService.save(orders);
-         alert(`ORDER-${uuid} confirmed`);
+         window.location.href= '/src/pages/orders.html';
          cartService.clear();
          }
       }else {

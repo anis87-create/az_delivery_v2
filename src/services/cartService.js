@@ -30,5 +30,8 @@ export const cartService = {
          const foundedItemById = arr.find(item  => item.name === itemName)?.id;
          const updatedItems = arr.filter(item => item?.id !== foundedItemById);
          return updatedItems; 
-    } 
+    },
+    findRestaurantNameByRestaurantId(arr, id){
+         return arr.find(item => item?.id === Number(id)).name;
+    }
 }

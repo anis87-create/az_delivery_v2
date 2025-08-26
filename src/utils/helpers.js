@@ -1,3 +1,5 @@
+import { DELIVERY_FREE, SERVICE_FREE } from "./config.js";
+
 export const getPriceRounded = (price) =>{
-        return Intl.NumberFormat('en-US', { style:'currency', currency:'USD',minimumFractionDigits: 2, }).format(number || 0);
+        return Number(price + SERVICE_FREE + DELIVERY_FREE).toFixed(2);
 }

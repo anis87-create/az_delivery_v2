@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/css/search.css">
+    <link rel="stylesheet" href="/public/css/index.css">
+    <title>AZ Food Delivery App</title>
+</head>
+<body>
+   <!--header-->
+   <header>
+       <div class="container">
+            <az-navbar></az-navbar>
+       </div>
+   </header>
+   <!--main-->
+   <main>
+       <div class="container">
+           <h1 class="search_title">Find Restaurants</h1>
+           <input type="text"    placeholder="search restaurants, cuisines, or dishes" class="searchbar">
+           <div class="categories-list">
+              <div class="category-item">
+                 All
+              </div>
+              <div class="category-item">
+                 Burger
+              </div>
+              <div class="category-item">
+                 Pizza
+              </div>
+              <div class="category-item">
+                 Sushi
+              </div>
+              <div class="category-item">
+                 Healthy
+              </div>
+              <div class="category-item">
+                 Asian
+              </div>
+              <div class="category-item">
+                 Desserts
+              </div>
+           </div>
+       </div>
+   </main>
+   <footer>
+       <p>&copy; 2025 AzFoodDelivery. Tous droits réservés.</p>
+   </footer>
+
+   <script src="/public/js/search.js"  type="module"></script>
+   <script src="/public/js/az-navbar.js"  type="module"></script>
+   <script src="/public/js/cart.js"  type="module"></script>
+</body>
+</html>

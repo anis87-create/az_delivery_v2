@@ -8,7 +8,7 @@
     --header-height: 130px;
     --primary-color: #22C55E;
     --green-dark:   #48bb78;
-    --secondary-color:  rgb(249 115 22 / 0.9);
+    --secondary-color:  #f97316;
     --box-shadow-card:  rgba(0, 0, 0, 0.16) 0px 1px 4px;
     --dark-green:  #16A34A;
 }
@@ -24,18 +24,6 @@ body {
 }
 
 
-.searchbar{
-    padding: 10px;
-    width: 100%;
-    border-radius: 5px;
-    border: 1px solid #eee;
-    outline: 0px;
-    background-color: #eee;
-    background-image: url('../images/icons8-search-25.png');
-    background-repeat: no-repeat;
-    background-position: 0px 5px;
-    padding-left: 28px;
-}
 
 /*commom*/
 .container {
@@ -54,7 +42,6 @@ body {
 }
 a {
     text-decoration: none;
-    color: inherit;
 }
 
 li {
@@ -307,9 +294,7 @@ section {
 .categories-content > .category:nth-child(11){
     background-image: url('../images/healthy.avif');
 }
-.searchbar_mobile{
-    margin-bottom: 30px;
-}
+
 /*restaurants*/
  .restaurants-content {
     display: flex;
@@ -395,6 +380,7 @@ footer {
   margin-top: 40px;             /* espace avec ce qui précède */
   border-top: 1px solid #e5e7eb;/* ligne discrète de séparation */
 }
+
 /*medium. screen */
 @media  screen and (min-width: 728px){
 
@@ -477,17 +463,8 @@ footer {
        background: rgb(249, 250, 251)
     }
     
-    .searchbar_mobile {
-        display: none;
-    }
-    .searchbar_desktop {
-        display: block;
-        margin-left: 10px;
-        background-position: 5px 11px;
-        background-image: url('../images/icons8-search-middle-gray-desktop-25.png');
-        background-color: white;
-        padding-left: 30px;
-    }
+    
+ 
     .categories {
     margin: 50px 0px;
     }
