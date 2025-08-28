@@ -2,6 +2,7 @@ export const restaurants = [
     {
         id: 1,
         name:'Burger Palace',
+        category: 'Burger',
         items: [
             {
                 name:'Classic Cheesburger',
@@ -66,6 +67,7 @@ export const restaurants = [
     {
         id: 2,
         name: 'Pizza Heaven',
+        category: 'Pizza',
         items: [
             {
                 name: 'Margherita',
@@ -112,6 +114,7 @@ export const restaurants = [
     {
         id: 3,
         name: 'Sushi Express',
+        category: 'Sushi',
         items: [
             {
                 name: 'California Roll',
@@ -145,6 +148,7 @@ export const restaurants = [
     { 
         id: 4,
         name: 'Tacos Fiesta',
+        category:'mexican',
         items: [
             {
                 name: 'Chicken Taco',
@@ -178,6 +182,7 @@ export const restaurants = [
     {
         id: 5,
         name: 'Salad Bar',
+        category:'healthy',
         items: [
             {
                 name: 'Caesar Salad',
@@ -211,6 +216,7 @@ export const restaurants = [
     {
         id: 6,
         name: 'Noodle House',
+        category:'asian',
         items: [
             {
                 name: 'Chicken Ramen',

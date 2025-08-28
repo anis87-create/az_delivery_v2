@@ -1,5 +1,5 @@
 import { restaurants } from "../../data/restaurants.js";
-import { cartService } from "../../src/services/cartService.js";
+
 
 document.addEventListener('DOMContentLoaded', () => {
     //cartService.clear();

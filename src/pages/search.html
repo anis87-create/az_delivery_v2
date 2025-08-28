@@ -21,29 +21,45 @@
        <div class="container">
            <h1 class="search_title">Find Restaurants</h1>
            <input type="text"    placeholder="search restaurants, cuisines, or dishes" class="searchbar">
-           <div class="categories-list">
-              <div class="category-item">
-                 All
-              </div>
-              <div class="category-item">
-                 Burger
-              </div>
-              <div class="category-item">
-                 Pizza
-              </div>
-              <div class="category-item">
-                 Sushi
-              </div>
-              <div class="category-item">
-                 Healthy
-              </div>
-              <div class="category-item">
-                 Asian
-              </div>
-              <div class="category-item">
-                 Desserts
-              </div>
+           <div class="search-container">
+               <div class="categories-list">
+                  <div id="all" class="category-item">
+                     All
+                  </div>
+                  <div id="burger" class="category-item">
+                     Burger
+                  </div>
+                  <div id="pizza" class="category-item">
+                     Pizza
+                  </div>
+                  <div id="sushi" class="category-item">
+                     Sushi
+                  </div>
+                  <div id="healthy" class="category-item">
+                     Healthy
+                  </div>
+                  <div id="asian" class="category-item">
+                     Asian
+                  </div>
+                  <div id="dessert" class="category-item">
+                     Desserts
+                  </div>
+               </div>
+               <div class="search-type-container">
+                  <button class="search-by-list">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-list w-4 h-4 mr-2"><line x1="8" x2="21" y1="6" y2="6"></line><line x1="8" x2="21" y1="12" y2="12"></line><line x1="8" x2="21" y1="18" y2="18"></line><line x1="3" x2="3.01" y1="6" y2="6"></line><line x1="3" x2="3.01" y1="12" y2="12"></line><line x1="3" x2="3.01" y1="18" y2="18"></line></svg>
+                     List
+                  </button>
+                  <button class="search-by-map">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin w-4 h-4 mr-2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                     Map
+                  </button>
+               </div>
            </div>
+           
+           <p id="restaurants_count"></p>
+           <div class="restaurants-list">
+           </div> 
        </div>
    </main>
    <footer>
