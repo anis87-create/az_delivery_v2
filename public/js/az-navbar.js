@@ -19,7 +19,6 @@ class NavBar extends HTMLElement {
     return this.getAttribute("showSearchBar") === "true";
   }
     template(){
-        const showSearchBar = this.showSearchBar;
         return html`
          <style>
            @import url("/public/css/index.css");

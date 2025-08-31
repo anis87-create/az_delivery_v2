@@ -33,11 +33,12 @@ const loadRestaurants = () => {
            restaurantContainer.innerHTML = "";  
            if(e.target.id === 'all'){
              renderRestaurants(restaurants, restaurantContainer);
+             searchInput.disabled =false;
            }else {
              let restaurantsFilteredByCategory = restaurants.filter(restaurant => restaurant.category.toLowerCase() === e.target.id.toLowerCase());
              renderRestaurants(restaurantsFilteredByCategory, restaurantContainer);
+             searchInput.disabled =true;
            }
-           
         });
     });
 
