@@ -2,7 +2,7 @@ import { orderService } from "../../src/services/orderService.js";
 import { getPriceRounded } from "../../src/utils/helpers.js";
 
 document.addEventListener('DOMContentLoaded', () => {
-   mainOrders();
+mainOrders();
   orderService.clear();
 });
 
@@ -78,9 +78,7 @@ const mainOrders = () => {
             document.querySelector('.orders-content').appendChild(orderElt);
         }
      });
-    }else {
-        console.log('yes');
-        
+    }else {        
         const noOrdersContainer = document.createElement('div');
         noOrdersContainer.classList.add('no-orders');
         const noOrdersTextElt = document.createElement('span').appendChild(document.createTextNode('there is no orders!'));

@@ -1,7 +1,6 @@
 import { restaurants } from "../../data/restaurants.js";
 import { cartService } from "../../src/services/cartService.js";
 import { orderService } from "../../src/services/orderService.js";
-import { DELIVERY_FREE, SERVICE_FREE } from "../../src/utils/config.js";
 import { getPriceRounded } from "../../src/utils/helpers.js";
 document.addEventListener('DOMContentLoaded', () => {
    checkoutUI();

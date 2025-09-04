@@ -32,6 +32,6 @@ export const cartService = {
          return updatedItems; 
     },
     findRestaurantNameByRestaurantId(arr, id){
-         return arr.find(item => item?.id === Number(id)).name;
+         return arr.find(item => item?.id === Number(id))?.name;
     }
 }
